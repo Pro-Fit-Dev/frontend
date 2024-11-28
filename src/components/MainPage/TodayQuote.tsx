@@ -47,7 +47,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin: 0;
     color: #ffffff;
@@ -60,7 +60,7 @@ const Divider = styled.hr`
 `;
 
 const QuoteText = styled.p`
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0;
     line-height: 1.6;
     color: #ffffff;
@@ -68,7 +68,7 @@ const QuoteText = styled.p`
 `;
 
 const Author = styled.p`
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     margin: 10px 0 0;
     text-align: right;
     color: #ffffff;

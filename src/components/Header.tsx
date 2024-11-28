@@ -6,7 +6,7 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
   return (
     <HeaderContainer>
-      <Logo>FitHan</Logo>
+      <Logo>ProFit</Logo>
       <NotificationIcon>
         <FontAwesomeIcon icon={faBell} />
       </NotificationIcon>

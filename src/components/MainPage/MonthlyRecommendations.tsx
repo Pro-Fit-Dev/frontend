@@ -5,6 +5,7 @@ const MonthlyRecommendations = () => {
     return (
         <Container>
             <Title>이 달의 운동 추천</Title>
+            <Divider />
             <ScrollWrapper>
                 {[1, 2, 3, 4, 5].map((_, idx) => (
                     <RecommendationCard key={idx}>
@@ -18,7 +19,6 @@ const MonthlyRecommendations = () => {
 
 export default MonthlyRecommendations;
 
-// 스타일 정의
 const Container = styled.div`
     border: 1px solid #8ec6c5;
     border-radius: 10px;
@@ -29,9 +29,16 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
     color: #3c6e71;
+    margin: 0;
+    margin-bottom: 10px;
+`;
+
+const Divider = styled.hr`
+    border: none;
+    border-top: 1px solid #dfdfdf;
+    margin: 0 0 10px 0;
 `;
 
 const ScrollWrapper = styled.div`

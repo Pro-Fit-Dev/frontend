@@ -7,7 +7,6 @@ const Footer = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // 현재 경로가 active인지 확인하는 함수
     const isActive = (path: string) => location.pathname === path;
 
     return (

@@ -51,7 +51,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.h2`
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #3c6e71;
     margin: 0;
 `;
@@ -79,7 +79,7 @@ const Description = styled.p`
 const Divider = styled.hr`
     border: none;
     border-top: 1px solid #dfdfdf;
-    margin: 0 0 20px 0;
+    margin: 0 0 10px 0;
 `;
 
 const CardContainer = styled.div`
@@ -104,19 +104,18 @@ const CardContent = styled.div`
 `;
 
 const CardTitle = styled.h3`
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #333333;
     margin: 0 0 5px 0;
 `;
 
 const CardSubtitle = styled.p`
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: #777777;
     margin: 0;
 `;
 
 const CardDistance = styled.span`
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: #3c6e71;
-    font-weight: bold;
 `;
