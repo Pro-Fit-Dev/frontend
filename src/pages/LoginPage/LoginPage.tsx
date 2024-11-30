@@ -30,13 +30,9 @@ const LoginPage = () => {
                 <a href="#">회원가입</a>
             </S.ButtonWrapper>
             <S.InputWrapper>
-                <S.LoginBtn href="#" style={{ marginTop: '30px' }}> 로그인
+                <S.LoginBtn href="/home" style={{ marginTop: '30px' }}> 로그인
                 </S.LoginBtn>
             </S.InputWrapper>
-            <div style={{ marginTop: '32px' }}>
-                <S.CircleBtn href="#" style={{ backgroundColor: '#A4F77E' }} />
-                <S.CircleBtn href="#" style={{ backgroundColor: '#BFBFBF', marginLeft: '16px' }} />
-            </div>
         </S.Container>
     );
 };
