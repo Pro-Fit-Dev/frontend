@@ -40,7 +40,7 @@ export default TodayQuote;
 const Container = styled.div`
     background-color: #8ec6c5;
     border-radius: 12px;
-    padding: 25px;
+    padding: 5%;
     margin-bottom: 20px;
     color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

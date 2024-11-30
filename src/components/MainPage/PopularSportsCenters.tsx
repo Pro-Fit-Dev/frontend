@@ -15,7 +15,7 @@ const PopularSportsCenters = () => {
                 <Title>인기 스포츠 지원센터</Title>
                 <MoreButton onClick={handleViewMoreClick}>더보기</MoreButton>
             </Header>
-            <Description>가장 인기 많은 스포츠는 어떤 게 있는지 확인해보세요!</Description>
+            <Description>가장 수강생이 많은 센터입니다!</Description>
             <Divider />
             <CardContainer>
                 {[1, 2, 3].map((_, idx) => (
@@ -38,7 +38,7 @@ export default PopularSportsCenters;
 const Container = styled.div`
     border: 1px solid #8ec6c5;
     border-radius: 10px;
-    padding: 30px;
+    padding: 7% 5% 5% 5%;
     margin-bottom: 20px;
     background-color: #ffffff;
 `;
@@ -71,7 +71,7 @@ const MoreButton = styled.button`
 `;
 
 const Description = styled.p`
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #555555;
     margin-bottom: 20px;
 `;

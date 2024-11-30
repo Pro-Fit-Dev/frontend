@@ -32,12 +32,12 @@ const Footer = () => {
                 />
                 <Text style={{ color: isActive("/community") ? "#2c3e50" : "#95a5a6" }}>커뮤니티</Text>
             </IconContainer>
-            <IconContainer onClick={() => navigate("/mypage")}>
+            <IconContainer onClick={() => navigate("/myPage")}>
                 <FontAwesomeIcon
                     icon={faCircleUser}
-                    style={{ ...iconStyle, opacity: isActive("/mypage") ? 1 : 0.5 }}
+                    style={{ ...iconStyle, opacity: isActive("/myPage") ? 1 : 0.5 }}
                 />
-                <Text style={{ color: isActive("/mypage") ? "#2c3e50" : "#95a5a6" }}>마이 페이지</Text>
+                <Text style={{ color: isActive("/myPage") ? "#2c3e50" : "#95a5a6" }}>마이 페이지</Text>
             </IconContainer>
         </FooterContainer>
     );

@@ -25,6 +25,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   background-color: #fff;
   border-bottom: 2px solid #ccc;
+  z-index: 1000;
 `;
 
 const Logo = styled.h1`
