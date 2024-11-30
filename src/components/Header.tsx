@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 
-// 로고와 알림 아이콘을 포함한 헤더
 const Header = () => {
   return (
     <HeaderContainer>
@@ -29,17 +28,17 @@ const HeaderContainer = styled.header`
 `;
 
 const Logo = styled.h1`
-  font-family: 'FitHan', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 400;
+  font-family: sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
   margin-left: 30px;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 `;
 
