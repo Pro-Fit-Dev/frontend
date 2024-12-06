@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import * as S from "./Styles";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import * as S from "../Write/Styles";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const WritePage: React.FC = () => {
@@ -23,7 +23,7 @@ const WritePage: React.FC = () => {
             content,
             hashtag: selectedHashtag,
         });
-        navigate("/community"); // 등록 후 커뮤니티 페이지로 이동
+        navigate("/community");
     };
 
     return (
