@@ -34,3 +34,5 @@ package-lock.json
 yarn.lock
 
 Thumbs.db
+
+/public/assets/data/
