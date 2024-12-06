@@ -23,3 +23,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+*.tsbuildinfo
+.firebase/
+.firebaserc
+
+tsconfig.tsbuildinfo
+
+package-lock.json
+yarn.lock
+
+Thumbs.db
