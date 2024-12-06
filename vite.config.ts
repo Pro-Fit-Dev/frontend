@@ -29,7 +29,10 @@ export default defineConfig({
     })
   ],
   server: {
-    host: '0.0.0.0', // 네트워크에서 접근 가능하게 설정
-    port: 3000 // 원하는 포트 설정 (기본값: 5173)
-  }
+    host: '0.0.0.0',
+    port: 3000
+  },
+  build: {
+    outDir: 'dist',
+  },
 });
