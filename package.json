@@ -9,14 +9,22 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "overrides": {
+    "date-fns": "2.29.3"
+  },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
+    "@date-io/date-fns": "^3.0.0",
+    "@date-io/dayjs": "^3.0.0",
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
     "@fortawesome/fontawesome-svg-core": "^6.7.1",
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/icons-material": "^6.1.7",
+    "@mui/material": "^6.1.10",
+    "@mui/x-date-pickers": "^7.23.1",
     "chart.js": "^4.4.6",
+    "dayjs": "^1.11.13",
     "install": "^0.13.0",
     "npm": "^10.9.1",
     "react": "^18.3.1",
