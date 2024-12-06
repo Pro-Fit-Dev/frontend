@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import * as S from "./Styles";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import { CommunityPost, tagMap } from "../../../recoil/types"; // 타입과 태그 맵 가져오기
+import { CommunityPost, tagMap } from "../../../recoil/types/recoilTypes"; // 타입과 태그 맵 가져오기
 
 const apiUrl = import.meta.env.VITE_API_URL;
 

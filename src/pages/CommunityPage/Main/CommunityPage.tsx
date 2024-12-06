@@ -3,7 +3,7 @@ import * as S from "./Styles";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useNavigate } from "react-router-dom";
-import { CommunityPost, tagMap } from "../../../recoil/types";
+import { CommunityPost, tagMap } from "../../../recoil/types/recoilTypes";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const CommunityPage: React.FC = () => {
