@@ -1,0 +1,49 @@
+{
+    "name": "ProFit", 
+    "short_name": "ProFit", 
+    "start_url": "/", 
+    "display": "standalone", 
+    "description": "A PWA application built with React and Vite",
+    "lang": "en", 
+    "dir": "auto", 
+    "theme_color": "#000000", 
+    "background_color": "#ffffff", 
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "/src/assets/gpt.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/src/assets/gpt.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/src/assets/gpt.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "description": "Screenshot of the application"
+      }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "shortcuts": [
+      {
+        "name": "Home",
+        "url": "/",
+        "description": "Go to the home page"
+      },
+      {
+        "name": "About",
+        "url": "/about",
+        "description": "Learn more about the application"
+      }
+    ]
+  }
+  
