@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Map from '../../components/Map/Map';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,7 +43,7 @@ const LocationPage = () => {
                 </SearchBar>
             </SearchContainer>
             <Main>
-                <MapBackground>여기에 지도 컴포넌트가 들어갑니다.</MapBackground>
+                <MapBackground><Map /></MapBackground>
                 <ResultsContainer
                     isOpen={isResultsOpen}
                     onTouchStart={handleTouchStart}
