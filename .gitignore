@@ -35,4 +35,4 @@ yarn.lock
 
 Thumbs.db
 
-/public/assets/data/
+src/assets/data/
