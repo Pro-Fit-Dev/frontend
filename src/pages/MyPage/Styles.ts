@@ -1,15 +1,14 @@
 import styled from "styled-components";
 
-// 전체 컨테이너 스타일
 export const Container = styled.div`
-  padding: 40% 5%;
+  padding: 25% 5% 15% 5%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f9f9f9;
 `;
 
-// 프로필 섹션 스타일
 export const ProfileSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,7 +17,6 @@ export const ProfileSection = styled.div`
   gap: 15px;
 `;
 
-// 환영 메시지 스타일
 export const WelcomeMessage = styled.p`
   font-size: 16px;
   text-align: center;
@@ -29,7 +27,6 @@ export const WelcomeMessage = styled.p`
   }
 `;
 
-// 메뉴 리스트 스타일
 export const MenuList = styled.div`
   width: 100%;
   background-color: #ffffff;
@@ -39,7 +36,6 @@ export const MenuList = styled.div`
   margin-bottom: 24px;
 `;
 
-// 메뉴 아이템 스타일
 export const MenuItem = styled.div`
   padding: 16px;
   font-size: 14px;
@@ -57,34 +53,32 @@ export const MenuItem = styled.div`
   }
 `;
 
-// 지원 섹션 스타일
 export const SupportSection = styled.div`
-  position: fixed; /* 하단 고정을 위해 fixed 사용 */
-  bottom: 15%; /* 화면 하단에서 약간 위로 */
+  width: 100%;
   right: 16px;
-  text-align: right; /* 오른쪽 정렬 */
+  text-align: right; 
 `;
 
 // 지원 문구 텍스트 스타일
 export const SupportText = styled.p`
   font-size: 14px;
-  margin-bottom: 8px; /* 버튼과의 간격을 조정 */
+  margin-bottom: 8px;
   color: #666;
-  text-align: right; /* 텍스트도 오른쪽 정렬 */
+  text-align: right; 
 `;
 
 // 버튼 스타일
 export const Button = styled.button`
-  padding: 8px 16px; /* 버튼의 내부 여백 */
-  font-size: 14px; /* 버튼 텍스트 크기 */
-  color: #3c6e71; /* 테두리와 동일한 색상으로 변경 */
-  background-color: transparent; /* 배경 투명 */
+  padding: 8px 16px; 
+  font-size: 14px; 
+  color: #3c6e71; 
+  background-color: transparent; 
   border: 1px solid #3c6e71;
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
-    background-color: #d6e6e7; /* 호버 시 연한 색상 추가 */
-    color: #3c6e71; /* 글자 색상 유지 */
+    background-color: #d6e6e7;
+    color: #3c6e71; 
   }
 `;

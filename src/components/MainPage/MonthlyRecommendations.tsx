@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FindCSV } from '../../recoil/types/FindCSV';
 import { useRecoilValue } from 'recoil';
-import { userId } from '../../recoil/atoms/userId';
+import { userState } from '../../recoil/atoms/userState';
 //import { parseCSV } from '../../utils/csvParser';
 import { calculateAge } from '../../utils/calculateAge';
 import { getRandomRecommendations } from '../../utils/getRandomRecommendations';
@@ -28,7 +28,7 @@ const stepImages: Record<string, string> = {
 };
 
 const MonthlyRecommendations = () => {
-  const user = useRecoilValue(userId);
+  const user = useRecoilValue(userState);
   const [recommendations, setRecommendations] = useState<FindCSV[]>([]);
 
   useEffect(() => {
