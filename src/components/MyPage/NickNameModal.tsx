@@ -30,8 +30,7 @@ const NickNameModal: React.FC<NickNameModalProps> = ({ isOpen, onClose }) => {
       const data = await response.json();
       console.log("Response Data:", data);
       if (response.ok) {
-        const successMessage = await response.json();
-        alert(successMessage);
+        alert(data.message);
 
         // Recoil 상태 업데이트
         setUser((prevState) => ({
@@ -39,10 +38,10 @@ const NickNameModal: React.FC<NickNameModalProps> = ({ isOpen, onClose }) => {
           nickName: nickname,
         }));
 
-        onClose(); // 모달 닫기
+        onClose();
+        window.location.reload();
       } else if (response.status === 400) {
-        const errorMessage = await response.json();
-        alert(errorMessage); // "이미 사용 중인 닉네임입니다."
+        alert(data.message);
       } else {
         alert("닉네임 변경 중 오류가 발생했습니다. 다시 시도해주세요.");
       }

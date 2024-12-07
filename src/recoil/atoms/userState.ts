@@ -1,13 +1,20 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist({
+    key: "userStatePersist",
+    storage: localStorage,
+});
 
 export const userState = atom({
-    key: 'userState',
+    key: "userState",
     default: {
         id: null,
-        username: '',
-        birthDay: '',
-        gender: '',
-        nickName: '',
-        disability: '',
+        username: "",
+        birthDay: "",
+        gender: "",
+        nickName: "",
+        disability: "",
     },
+    effects_UNSTABLE: [persistAtom], // persistAtom 추가
 });

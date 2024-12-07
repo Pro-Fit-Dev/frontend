@@ -27,7 +27,7 @@ const LoginPage = () => {
             .then((response) => response.json())
             .then((data) => {
                 console.log("Server Response Data:", data);
-                if (data.success) {
+                if (data.userId) {
                     setUser({
                         id: data.userId,
                         username: data.username,
@@ -37,16 +37,7 @@ const LoginPage = () => {
                         disability: data.disability,
                     });
 
-                    console.log("Recoil UserState Updated:", {
-                        id: data.userId,
-                        username: data.username,
-                        birthDay: data.birthDay,
-                        gender: data.gender,
-                        nickName: data.nickName,
-                        disability: data.disability,
-                    });
-
-                    alert(data.message);
+                    alert("로그인 성공!");
                     window.location.href = '/home';
                 } else {
                     alert('로그인 실패! 정보를 확인하세요.');

@@ -20,7 +20,7 @@ const PwChangeModal: React.FC<PwChangeModalProps> = ({ isOpen, onClose }) => {
 
   const handleConfirm = async () => {
     if (newPassword !== confirmPassword) {
-      alert("새 비밀번호가 일치하지 않습니다.");
+      alert("새 비밀번호와 확인이 일치하지 않습니다.");
       return;
     }
 
@@ -31,7 +31,7 @@ const PwChangeModal: React.FC<PwChangeModalProps> = ({ isOpen, onClose }) => {
 
     try {
       const response = await fetch(
-        `${apiUrl}/api/users/nickname?userId=${user.id}&password=${currentPassword}&newPassword=${newPassword}`,
+        `${apiUrl}/api/users/password?userId=${user.id}&password=${currentPassword}&newPassword=${newPassword}`,
         {
           method: "PUT",
           headers: {
@@ -43,13 +43,11 @@ const PwChangeModal: React.FC<PwChangeModalProps> = ({ isOpen, onClose }) => {
       console.log("Response Data:", data);
 
       if (response.ok) {
-        const successMessage = await response.json();
-        alert(successMessage);
+        alert(data.message);
         onClose();
       } else if (response.status === 400) {
-        const errorMessage = await response.json();
-        console.error("Server Response Error:", errorMessage);
-        alert(errorMessage);
+        console.error("Server Response Error:", data.message);
+        alert(data.message);
       } else {
         console.error("Unexpected server error:", response.status);
         alert("비밀번호 변경 중 오류가 발생했습니다. 다시 시도해주세요.");

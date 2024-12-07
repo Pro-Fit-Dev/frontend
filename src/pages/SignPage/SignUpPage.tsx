@@ -64,7 +64,7 @@ const SignUpPage = () => {
         console.log('Sending data:', userInfo);
 
         try {
-            const response = await fetch(`${apiUrl}/join`, {
+            const response = await fetch(`${apiUrl}/api/users/join`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userInfo),
