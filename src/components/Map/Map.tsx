@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { locationAtom } from '../../recoil/atoms/locationAtom';
 
 const loadGoogleMapsScript = (apiKey: string) => {
     return new Promise((resolve, reject) => {
@@ -19,18 +21,18 @@ const loadGoogleMapsScript = (apiKey: string) => {
 
 const Map: React.FC = () => {
     const mapRef = useRef<HTMLDivElement>(null);
-    const [, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+    const setUserLocation = useSetRecoilState(locationAtom); // Recoil 상태 업데이트
 
     useEffect(() => {
         const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
         const getUserLocation = () => {
-            return new Promise<{ lat: number; lng: number }>((resolve, reject) => {
+            return new Promise<{ latitude: number; longitude: number }>((resolve, reject) => {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
                             const { latitude, longitude } = position.coords;
-                            resolve({ lat: latitude, lng: longitude });
+                            resolve({ latitude, longitude });
                         },
                         (error) => {
                             console.error('Error getting user location:', error);
@@ -48,17 +50,17 @@ const Map: React.FC = () => {
                 await loadGoogleMapsScript(apiKey);
 
                 const location = await getUserLocation();
-                setUserLocation(location);
+                setUserLocation(location); // 위치를 Recoil 상태에 저장
 
                 if (mapRef.current) {
                     const map = new google.maps.Map(mapRef.current, {
-                        center: location, // 사용자 위치로 중심 설정
+                        center: { lat: location.latitude, lng: location.longitude }, // 사용자 위치로 중심 설정
                         zoom: 15, // 확대 수준 설정
                     });
 
                     // 마커 추가
                     new google.maps.Marker({
-                        position: location,
+                        position: { lat: location.latitude, lng: location.longitude },
                         map,
                         title: '현재 위치',
                     });
@@ -69,7 +71,7 @@ const Map: React.FC = () => {
         };
 
         initializeMap();
-    }, []);
+    }, [setUserLocation]);
 
     return (
         <div

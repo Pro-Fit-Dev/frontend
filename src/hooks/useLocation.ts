@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-
-export interface Coordinates {
-    latitude: number;
-    longitude: number;
-}
+import { useSetRecoilState } from 'recoil';
+import { locationAtom, Coordinates } from '../recoil/atoms/locationAtom';
 
 export const useLocation = () => {
-    const [location, setLocation] = useState<Coordinates | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const setLocationInAtom = useSetRecoilState(locationAtom);
 
     useEffect(() => {
         if (!navigator.geolocation) {
@@ -17,21 +14,24 @@ export const useLocation = () => {
 
         const handleSuccess = (position: GeolocationPosition) => {
             const { latitude, longitude } = position.coords;
-            setLocation({ latitude, longitude });
+            const location: Coordinates = { latitude, longitude };
+
+            // Recoil Atom에 위치 저장
+            setLocationInAtom(location);
         };
 
         const handleError = (error: GeolocationPositionError) => {
             setError(error.message);
         };
 
-        // Start watching position
+        // 위치 추적 시작
         const watchId = navigator.geolocation.watchPosition(handleSuccess, handleError, {
             enableHighAccuracy: true,
         });
 
-        // Clean up watcher on unmount
+        // 컴포넌트 언마운트 시 위치 추적 중지
         return () => navigator.geolocation.clearWatch(watchId);
-    }, []);
+    }, [setLocationInAtom]);
 
-    return { location, error };
+    return { error };
 };
