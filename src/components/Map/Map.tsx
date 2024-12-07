@@ -1,6 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { locationAtom } from '../../recoil/atoms/locationAtom';
+import useFilterByDistance from '../../hooks/useFilterByDistance';
+import Loader from '../Common/Loader';
+
+interface Location {
+    latitude: number;
+    longitude: number;
+}
 
 const loadGoogleMapsScript = (apiKey: string) => {
     return new Promise((resolve, reject) => {
@@ -21,7 +28,10 @@ const loadGoogleMapsScript = (apiKey: string) => {
 
 const Map: React.FC = () => {
     const mapRef = useRef<HTMLDivElement>(null);
-    const setUserLocation = useSetRecoilState(locationAtom); // Recoil 상태 업데이트
+    const setUserLocation = useSetRecoilState(locationAtom);
+    const [locations, setLocations] = useState<Location[]>([]);
+    const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
+    const { filterByDistance } = useFilterByDistance();
 
     useEffect(() => {
         const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -45,6 +55,17 @@ const Map: React.FC = () => {
             });
         };
 
+        const fetchLocations = async () => {
+            try {
+                const response = await fetch('http://your-server.com/api/locations'); // 서버에서 장소 데이터 요청
+                const data = await response.json();
+                console.log('Fetched locations:', data);
+                setLocations(data);
+            } catch (error) {
+                console.error('Error fetching locations:', error);
+            }
+        };
+
         const initializeMap = async () => {
             try {
                 await loadGoogleMapsScript(apiKey);
@@ -58,32 +79,49 @@ const Map: React.FC = () => {
                         zoom: 15, // 확대 수준 설정
                     });
 
+                    // 주변 장소 필터링
+                    const nearbyLocations = filterByDistance(locations, location, 5000); // 반경 5km
+                    console.log('Filtered locations:', nearbyLocations);
+
                     // 마커 추가
-                    new google.maps.Marker({
-                        position: { lat: location.latitude, lng: location.longitude },
-                        map,
-                        title: '현재 위치',
+                    nearbyLocations.forEach((loc) => {
+                        new google.maps.Marker({
+                            position: { lat: loc.latitude, lng: loc.longitude },
+                            map,
+                            title: loc.name, // 장소 이름
+                        });
                     });
                 }
             } catch (error) {
                 console.error('Error initializing map:', error);
+            } finally {
+                setIsLoading(false); // 로딩 종료
             }
         };
 
-        initializeMap();
-    }, [setUserLocation]);
+        const loadData = async () => {
+            setIsLoading(true);
+            await fetchLocations();
+            await initializeMap();
+        };
+
+        loadData();
+    }, [setUserLocation, filterByDistance, locations]);
 
     return (
-        <div
-            ref={mapRef}
-            style={{
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-            }}
-        />
+        <>
+            {isLoading && <Loader />}
+            <div
+                ref={mapRef}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                }}
+            />
+        </>
     );
 };
 

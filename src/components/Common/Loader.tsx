@@ -14,7 +14,7 @@ const LoaderWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* 부모 요소에 따라 다르게 설정 가능 */
+  height: 100%;
 `;
 
 const Spinner = styled.div`
@@ -27,11 +27,11 @@ const Spinner = styled.div`
 `;
 
 const Loader: React.FC = () => {
-    return (
-        <LoaderWrapper>
-            <Spinner />
-        </LoaderWrapper>
-    );
+  return (
+    <LoaderWrapper>
+      <Spinner />
+    </LoaderWrapper>
+  );
 };
 
 export default Loader;

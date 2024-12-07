@@ -42,7 +42,7 @@ const WritePage: React.FC = () => {
                                     key={tag}
                                     onClick={() => {
                                         setSelectedHashtag(tag);
-                                        setIsDropdownOpen(false); // 선택 후 드롭다운 닫기
+                                        setIsDropdownOpen(false);
                                     }}
                                 >
                                     {tag}
