@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./Styles";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/atoms/userState";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import NickNameModal from "../../components/MyPage/NickNameModal";
@@ -10,7 +12,8 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 const MyPage: React.FC = () => {
     const [modalState, setModalState] = useState<"nickname" | "password" | "bmi" | null>(null);
-
+    const user = useRecoilValue(userState);
+    const displayName = user.nickName || user.username;
     const openModal = (type: "nickname" | "password" | "bmi") => setModalState(type);
     const closeModal = () => setModalState(null);
 
@@ -21,7 +24,7 @@ const MyPage: React.FC = () => {
                 <S.ProfileSection>
                     <FontAwesomeIcon icon={faUserCircle} size="7x" />
                     <S.WelcomeMessage>
-                        안녕하세요! <strong>마루</strong>님의 마이페이지입니다.
+                        안녕하세요! <strong>{displayName}</strong>님의 마이페이지입니다.
                     </S.WelcomeMessage>
                 </S.ProfileSection>
                 <S.MenuList>
@@ -33,7 +36,16 @@ const MyPage: React.FC = () => {
                     <S.SupportText>
                         내가 청소년이라면? 국가에서 지원받고 운동하자!
                     </S.SupportText>
-                    <S.Button>스포츠 바우처 신청</S.Button>
+                    <S.Button
+                        onClick={() =>
+                            window.open(
+                                "https://www.gov.kr/main?a=AA020InfoCappViewApp&HighCtgCD=A07003&CappBizCD=13710000025",
+                                "_blank"
+                            )
+                        }
+                    >
+                        스포츠 바우처 신청
+                    </S.Button>
                 </S.SupportSection>
             </S.Container>
             {modalState === "nickname" && <NickNameModal isOpen={true} onClose={closeModal} />}

@@ -1,57 +1,93 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useRecoilValue } from 'recoil';
+import { userState } from "../../recoil/atoms/userState";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 interface PwChangeModalProps {
-    isOpen: boolean;
-    onClose: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const PwChangeModal: React.FC<PwChangeModalProps> = ({ isOpen, onClose }) => {
-    const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const user = useRecoilValue(userState);
 
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
-    const handleConfirm = () => {
-        if (newPassword !== confirmPassword) {
-            alert("새 비밀번호가 일치하지 않습니다.");
-            return;
+  const handleConfirm = async () => {
+    if (newPassword !== confirmPassword) {
+      alert("새 비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    console.log("Attempting password change...");
+    console.log("Current Password:", currentPassword);
+    console.log("New Password:", newPassword);
+    console.log("User ID:", user.id);
+
+    try {
+      const response = await fetch(
+        `${apiUrl}/api/users/nickname?userId=${user.id}&password=${currentPassword}&newPassword=${newPassword}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-        console.log("비밀번호 변경 성공!");
-        console.log("현재 비밀번호:", currentPassword);
-        console.log("새 비밀번호:", newPassword);
-        onClose();
-    };
+      );
+      const data = await response.json();
+      console.log("Response Data:", data);
 
-    return (
-        <ModalOverlay>
-            <ModalContent>
-                <ModalHeader>비밀번호 변경</ModalHeader>
-                <ModalInput
-                    type="password"
-                    placeholder="기존 비밀번호"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                />
-                <ModalInput
-                    type="password"
-                    placeholder="새 비밀번호"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <ModalInput
-                    type="password"
-                    placeholder="새 비밀번호 확인"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <ModalFooter>
-                    <ConfirmButton onClick={handleConfirm}>확인</ConfirmButton>
-                </ModalFooter>
-            </ModalContent>
-        </ModalOverlay>
-    );
+      if (response.ok) {
+        const successMessage = await response.json();
+        alert(successMessage);
+        onClose();
+      } else if (response.status === 400) {
+        const errorMessage = await response.json();
+        console.error("Server Response Error:", errorMessage);
+        alert(errorMessage);
+      } else {
+        console.error("Unexpected server error:", response.status);
+        alert("비밀번호 변경 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  return (
+    <ModalOverlay>
+      <ModalContent>
+        <ModalHeader>비밀번호 변경</ModalHeader>
+        <ModalInput
+          type="password"
+          placeholder="기존 비밀번호"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+        />
+        <ModalInput
+          type="password"
+          placeholder="새 비밀번호"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <ModalInput
+          type="password"
+          placeholder="새 비밀번호 확인"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <ModalFooter>
+          <ConfirmButton onClick={handleConfirm}>확인</ConfirmButton>
+        </ModalFooter>
+      </ModalContent>
+    </ModalOverlay>
+  );
 };
 
 export default PwChangeModal;

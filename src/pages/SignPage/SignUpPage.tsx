@@ -1,6 +1,4 @@
 import React, { useRef, useState } from 'react';
-// import { useSetRecoilState } from 'recoil';
-// import { userId } from '../../recoil/atoms/userId';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
 import { styled } from '@mui/material/styles';
@@ -12,6 +10,7 @@ import FormLabel from '@mui/material/FormLabel';
 import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { formatPhoneNumber } from '../../utils/phoneFormatter';
 import * as S from './Styles';
 import LogoPic from '/assets/images/logo.png';
 
@@ -40,7 +39,6 @@ const CustomTextField = styled(TextField)({
 dayjs.locale('ko');
 
 const SignUpPage = () => {
-    // const setUser = useSetRecoilState(userId);
     const usernameRef = useRef<HTMLInputElement>(null);
     const phoneNumberRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -50,11 +48,6 @@ const SignUpPage = () => {
     const [gender, setGender] = useState<string>('male');
     const [disability, setDisability] = useState<string>('No');
 
-    const formatPhoneNumber = (phoneNumber: string) => {
-        return phoneNumber
-            .replace(/[^0-9]/g, '')
-            .replace(/^(\d{3})(\d{3,4})(\d{4})$/, '$1-$2-$3');
-    };
     const handleSignUp = async () => {
         const formattedPhoneNumber = formatPhoneNumber(phoneNumberRef.current?.value || '');
 
