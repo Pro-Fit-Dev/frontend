@@ -1,7 +1,8 @@
 import { useRef } from 'react';
+import { formatPhoneNumber } from '../../utils/phoneFormatter';
 import TextField from '@mui/material/TextField';
 import * as S from './Styles';
-import LogoPic from '../../assets/gpt.png';
+import LogoPic from '/assets/images/logo.png';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const LoginPage = () => {
@@ -9,8 +10,15 @@ const LoginPage = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
 
     const handleLogin = () => {
-        const phoneNumber = phoneNumberRef.current?.value;
-        const password = passwordRef.current?.value;
+        let phoneNumber = phoneNumberRef.current?.value || '';
+        const password = passwordRef.current?.value || '';
+
+        phoneNumber = formatPhoneNumber(phoneNumber);
+
+        if (!phoneNumber || !password) {
+            alert('핸드폰 번호와 비밀번호를 입력하세요!');
+            return;
+        }
 
         fetch(`${apiUrl}/api/users/login?phoneNumber=${phoneNumber}&password=${password}`)
             .then((response) => response.json())
@@ -35,6 +43,7 @@ const LoginPage = () => {
                     label="핸드폰 번호 ( - 제외 )"
                     variant="outlined"
                     fullWidth
+                    inputRef={phoneNumberRef}
                 />
                 <TextField
                     id="password"
@@ -43,6 +52,7 @@ const LoginPage = () => {
                     type="password"
                     fullWidth
                     style={{ marginTop: '16px' }}
+                    inputRef={passwordRef}
                 />
             </S.InputWrapper>
             <S.ButtonWrapper>

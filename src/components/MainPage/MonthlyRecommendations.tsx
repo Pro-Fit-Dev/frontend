@@ -8,70 +8,70 @@ import { getRandomRecommendations } from '../../utils/getRandomRecommendations';
 import styled from 'styled-components';
 
 const mockUser = {
-    id: 'test123',
-    birthDay: '2000-01-01', // 생년월일
-    gender: 'M', // 성별 (M/F)
+  id: 'test123',
+  birthDay: '2000-01-01', // 생년월일
+  gender: 'M', // 성별 (M/F)
 };
 
 const mockCSVData = [
-    { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '준비운동', RECOMEND_MVM_NM: '스트레칭' },
-    { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '본운동', RECOMEND_MVM_NM: '푸쉬업' },
-    { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '본운동', RECOMEND_MVM_NM: '스쿼트' },
-    { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '마무리운동', RECOMEND_MVM_NM: '요가' },
-    { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '준비운동', RECOMEND_MVM_NM: '러닝' },
+  { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '준비운동', RECOMEND_MVM_NM: '스트레칭' },
+  { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '본운동', RECOMEND_MVM_NM: '푸쉬업' },
+  { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '본운동', RECOMEND_MVM_NM: '스쿼트' },
+  { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '마무리운동', RECOMEND_MVM_NM: '요가' },
+  { AGRDE_FLAG_NM: '20대', MBER_SEXDSTN_FLAG_CD: 'M', SPORTS_STEP_NM: '준비운동', RECOMEND_MVM_NM: '러닝' },
 ];
 
 const stepImages: Record<string, string> = {
-    준비운동: '/src/assets/images/ready.png',
-    본운동: '/src/assets/images/run.png',
-    마무리운동: '/src/assets/images/finish.png',
+  준비운동: '/assets/images/ready.png?v=1',
+  본운동: '/assets/images/run.png?v=1',
+  마무리운동: '/assets/images/finish.png?v=1',
 };
 
 const MonthlyRecommendations = () => {
-    const user = useRecoilValue(userId);
-    const [recommendations, setRecommendations] = useState<FindCSV[]>([]);
+  const user = useRecoilValue(userId);
+  const [recommendations, setRecommendations] = useState<FindCSV[]>([]);
 
-    useEffect(() => {
-        const loadRecommendations = async () => {
-            const data = mockCSVData; // Mock CSV 데이터
-            const age = calculateAge(mockUser.birthDay); // Mock 유저 데이터로 나이 계산
-            const filteredRecommendations = getRandomRecommendations(data, age, mockUser.gender);
-            setRecommendations(filteredRecommendations);
-            // const data = await parseCSV('/assets/data/국민_연령별_추천_운동_정보.csv');
-            // const age = calculateAge(user.birthDay);
-            // const filteredRecommendations = getRandomRecommendations(data, age, user.gender);
-            // setRecommendations(filteredRecommendations);
-        };
+  useEffect(() => {
+    const loadRecommendations = async () => {
+      const data = mockCSVData; // Mock CSV 데이터
+      const age = calculateAge(mockUser.birthDay); // Mock 유저 데이터로 나이 계산
+      const filteredRecommendations = getRandomRecommendations(data, age, mockUser.gender);
+      setRecommendations(filteredRecommendations);
+      // const data = await parseCSV('/assets/data/국민_연령별_추천_운동_정보.csv');
+      // const age = calculateAge(user.birthDay);
+      // const filteredRecommendations = getRandomRecommendations(data, age, user.gender);
+      // setRecommendations(filteredRecommendations);
+    };
 
-        loadRecommendations();
-    }, [user]);
+    loadRecommendations();
+  }, [user]);
 
-    return (
-        <Container>
-            <Title>이 달의 운동 추천</Title>
-            <Description>클릭하면 해당 운동을 할 수 있는 유튜브로 이동합니다!</Description>
-            <Divider />
-            <ScrollWrapper>
-                {recommendations.map((item, idx) => (
-                    <RecommendationCard
-                        key={idx}
-                        background={stepImages[item.SPORTS_STEP_NM]}
-                        onClick={() =>
-                            window.open(
-                                `https://www.youtube.com/results?search_query=${encodeURIComponent(
-                                    `${item.RECOMEND_MVM_NM} 운동 가이드`
-                                )}`,
-                                '_blank'
-                            )
-                        }
-                    >
-                        <RecommendationName>{item.RECOMEND_MVM_NM}</RecommendationName>
-                        <StepLabel>{item.SPORTS_STEP_NM}</StepLabel>
-                    </RecommendationCard>
-                ))}
-            </ScrollWrapper>
-        </Container >
-    );
+  return (
+    <Container>
+      <Title>이 달의 운동 추천</Title>
+      <Description>클릭하면 해당 운동을 할 수 있는 유튜브로 이동합니다!</Description>
+      <Divider />
+      <ScrollWrapper>
+        {recommendations.map((item, idx) => (
+          <RecommendationCard
+            key={idx}
+            background={stepImages[item.SPORTS_STEP_NM]}
+            onClick={() =>
+              window.open(
+                `https://www.youtube.com/results?search_query=${encodeURIComponent(
+                  `${item.RECOMEND_MVM_NM} 운동 가이드`
+                )}`,
+                '_blank'
+              )
+            }
+          >
+            <RecommendationName>{item.RECOMEND_MVM_NM}</RecommendationName>
+            <StepLabel>{item.SPORTS_STEP_NM}</StepLabel>
+          </RecommendationCard>
+        ))}
+      </ScrollWrapper>
+    </Container >
+  );
 };
 
 export default MonthlyRecommendations;
