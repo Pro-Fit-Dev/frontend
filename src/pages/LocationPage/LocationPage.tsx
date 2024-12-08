@@ -1,15 +1,20 @@
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { userLocationAtom } from "../../recoil/atoms/locationAtom";
 import styled from "styled-components";
+import useUserLocation from "../../hooks/useUserLocation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Map from '../../components/Map/Map';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Loader from "../../components/Common/Loader";
+import DropdownSearch from "../../components/Map/DropdownSearch";
 
-const LocationPage = () => {
+const LocationPage: React.FC = () => {
     const [isResultsOpen, setIsResultsOpen] = useState(false);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
+    useUserLocation();
+    const userLocation = useRecoilValue(userLocationAtom);
 
     const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
         setTouchStart(e.targetTouches[0].clientY); // 터치 시작 위치
@@ -31,19 +36,18 @@ const LocationPage = () => {
         }
     };
 
+    if (!userLocation) {
+        return <Loader />;
+    }
+
     return (
         <Container>
             <Header />
-            <SearchContainer>
-                <SearchBar>
-                    <Input placeholder="주소/장소명을 입력해주세요." />
-                    <SearchButton>
-                        <FontAwesomeIcon icon={faSearch} />
-                    </SearchButton>
-                </SearchBar>
-            </SearchContainer>
+            <DropdownSearch />
             <Main>
-                <MapBackground><Map /></MapBackground>
+                <MapBackground>
+                    <Map />
+                </MapBackground>
                 <ResultsContainer
                     isOpen={isResultsOpen}
                     onTouchStart={handleTouchStart}
@@ -77,8 +81,10 @@ const Container = styled.div`
 `;
 
 const Main = styled.main`
+    flex: 1;
+    width: 100%;
+    height: 100vh;
     overflow: hidden;
-    padding: 20% 40px;
 `;
 
 const MapBackground = styled.div`
@@ -87,46 +93,7 @@ const MapBackground = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: #d0d0d0; /* 지도 배경 */
-    z-index: -1;
-`;
-
-const SearchContainer = styled.div`
-    position: relative;
-    width: 90%;
-    top: 0;
-    margin: 17% auto;
-    border-radius: 12px;
-    padding: 10px 15px;
-    z-index: 5;
-`;
-
-const SearchBar = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 10px;
-`;
-
-const Input = styled.input`
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    outline: none;
-`;
-
-const SearchButton = styled.button`
-    padding: 10px;
-    background-color: #3c6e71;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #2a5a58;
-    }
+    z-index: 0;
 `;
 
 const ResultsContainer = styled.div<{ isOpen: boolean }>`

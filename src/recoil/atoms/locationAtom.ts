@@ -1,11 +1,13 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
-export interface Coordinates {
+export interface UserCoordinates {
     latitude: number;
     longitude: number;
+    cityName?: string;
+    districtName?: string;
 }
 
-export const locationAtom = atom<Coordinates | null>({
-    key: 'locationAtom', // 고유 key
-    default: null, // 초기값
+export const userLocationAtom = atom<UserCoordinates | null>({
+    key: "userLocationAtom",
+    default: null, // 초기값 없음
 });
