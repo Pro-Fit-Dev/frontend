@@ -70,7 +70,8 @@ const LoginPage = () => {
                 />
             </S.InputWrapper>
             <S.ButtonWrapper>
-                <a href="#">비밀번호 찾기</a>
+                {/* // 비밀번호 찾기가 있던 곳 */}
+                <a href="#"></a>
                 <a href="/signup">회원가입</a>
             </S.ButtonWrapper>
             <S.InputWrapper>

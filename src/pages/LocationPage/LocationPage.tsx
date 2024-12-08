@@ -36,37 +36,41 @@ const LocationPage: React.FC = () => {
         }
     };
 
-    if (!userLocation) {
-        return <Loader />;
-    }
-
     return (
         <Container>
             <Header />
             <DropdownSearch />
             <Main>
-                <MapBackground>
-                    <Map />
-                </MapBackground>
-                <ResultsContainer
-                    isOpen={isResultsOpen}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                >
-                    <HandleBar />
-                    <ResultsContent>
-                        {[1, 2, 3].map((_, idx) => (
-                            <ResultItem key={idx}>
-                                <PlaceInfo>
-                                    <PlaceName>XX 체육관</PlaceName>
-                                    <PlaceAddress>경기도 시흥시 산기대학로 어쩌고</PlaceAddress>
-                                </PlaceInfo>
-                                <Distance>2km</Distance>
-                            </ResultItem>
-                        ))}
-                    </ResultsContent>
-                </ResultsContainer>
+                {!userLocation ? (
+                    <LoaderContainer>
+                        <Loader />
+                    </LoaderContainer>
+                ) : (
+                    <>
+                        <MapBackground>
+                            <Map />
+                        </MapBackground>
+                        <ResultsContainer
+                            isOpen={isResultsOpen}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                        >
+                            <HandleBar />
+                            <ResultsContent>
+                                {[1, 2, 3].map((_, idx) => (
+                                    <ResultItem key={idx}>
+                                        <PlaceInfo>
+                                            <PlaceName>XX 체육관</PlaceName>
+                                            <PlaceAddress>경기도 시흥시 산기대학로 어쩌고</PlaceAddress>
+                                        </PlaceInfo>
+                                        <Distance>2km</Distance>
+                                    </ResultItem>
+                                ))}
+                            </ResultsContent>
+                        </ResultsContainer>
+                    </>
+                )}
             </Main>
             <Footer />
         </Container>
@@ -94,6 +98,19 @@ const MapBackground = styled.div`
     width: 100%;
     height: 100%;
     z-index: 0;
+`;
+
+const LoaderContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 5;
 `;
 
 const ResultsContainer = styled.div<{ isOpen: boolean }>`
