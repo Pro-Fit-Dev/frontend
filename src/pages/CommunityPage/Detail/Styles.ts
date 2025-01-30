@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 // 전체 컨테이너
 export const Container = styled.div`
-  padding: 20% 5% 25% 5%;
+  padding: 20% 7%;
+  height: 70vh;
+  background-color: #fff;
 `;
 
 // 제목

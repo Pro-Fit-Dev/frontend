@@ -41,7 +41,7 @@ export const PostList = styled.div`
 // 게시글 항목
 export const PostItem = styled.div`
   padding: 16px;
-  background: #f9f9f9;
+  background:#fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

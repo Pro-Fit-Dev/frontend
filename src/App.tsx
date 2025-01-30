@@ -6,6 +6,7 @@ import MyPage from './pages/MyPage/MyPage';
 import CommunityPage from "./pages/CommunityPage/Main/CommunityPage";
 import WritePage from "./pages/CommunityPage/Write/WritePage";
 import SignUpPage from "./pages/SignPage/SignUpPage";
+import DetailPage from "./pages/CommunityPage/Detail/DetailPage"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/community/write" element={<WritePage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/community/detail" element={<DetailPage />} />
       </Routes>
     </Router>
   );
