@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useGetCurrentUserId from "../../hooks/useGetCurrentUserId";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -102,6 +103,7 @@ const DropdownSearch: React.FC = () => {
     const [selectedCity, setSelectedCity] = useState<string>("");
     const [selectedDistrict, setSelectedDistrict] = useState<string>("");
     const [availableDistricts, setAvailableDistricts] = useState<string[]>([]);
+    const userId = useGetCurrentUserId();
 
     useEffect(() => {
         // 시/도를 선택하면 해당 시/군/구를 업데이트
@@ -111,8 +113,12 @@ const DropdownSearch: React.FC = () => {
     }, [selectedCity]);
 
     const handleSearch = () => {
-        const userId = 1; // 예시 userId
-        const url = `http://49.247.169.44:8080/custom/search?userId=${userId}&cityName=${selectedCity}&districtName=${selectedDistrict}`;
+        if (!userId) {
+            console.error("로그인한 사용자 ID를 찾을 수 없습니다.");
+            return;
+        }
+
+        const url = `${import.meta.env.VITE_API_URL}/api/sports-voucher/search?userId=${userId}&cityName=${selectedCity}&districtName=${selectedDistrict}`;
         console.log("API 요청 URL:", url);
     };
 
